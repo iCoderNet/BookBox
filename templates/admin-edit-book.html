@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Book{% endblock title %}
+
+{% block adress_path %}
+<div class="navbar-breadcrumb">
+   <h5 class="mb-0">Admin</h5>
+   <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Admin</a></li>
+         <li class="breadcrumb-item active" aria-current="page">Edit Book</li>
+      </ul>
+   </nav>
+</div>
+{% endblock adress_path %}
+
+{% block content %}
+         <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        {% if messages %}
+                           {% for message in messages %}
+                           <div class="alert bg-white alert-{{ message.tags }}" role="alert">
+                              <div class="iq-alert-text">{{ message }}</div>
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <i class="ri-close-line  text-dark"></i>
+                              </button>
+                           </div>
+                           {% endfor %}
+                        {% endif %}
+                        <div class="iq-card-header d-flex justify-content-between">
+                           <div class="iq-header-title">
+                              <h4 class="card-title">Kitob malumotlarini o'zgartirish</h4>
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <form method='POST' id='addBook' , enctype="multipart/form-data">
+                              {% csrf_token %}
+
+
+                              <div class="form-group">
+                                 <label>Kitob Nomi:</label>
+                                 <input type="text" class="form-control" name="name" maxlength="255" required="" id="id_name" value="{{book.name}}">
+                              </div>
+                              <div class="form-group">
+                                 <label>Kategoriyani tanlang:</label>
+                                 <select class="form-control" name="category" required="" id="id_category">
+                                    {% for category in categorys %}
+                                    <option value="{{category.pk}}" {% if category.pk == book.category.pk %}selected{% endif %}> {{category.name}} </option>
+                                    {% endfor %}
+                                 </select>
+                              </div>
+                              <div class="form-group">
+                                 <label>Kitob muallifini tanlang:</label>
+                                 <select class="form-control" name='author' id="id_author">
+                                    {% for author in authors %}
+                                    <option value="{{author.pk}}" {% if author.pk == book.author.pk %}selected{% endif %}> {{author.name}} </option>
+                                    {% endfor %}
+                                 </select>
+                              </div>
+                              
+                              <div class="form-group">
+                                 <label>Kitob uchun muqova rasmini yuklang:</label>
+                                 <div class="custom-file">
+                                    <input type="file" class="custom-file-input" name="image" accept="image/*" id="id_image">
+                                    <label class="custom-file-label">Rasm yuklash</label>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label>Kitob pdf faylini yuklang:</label>
+                                 <div class="custom-file">
+                                    <input type="file" name="document" id="id_document" class="custom-file-input" accept="application/pdf">
+                                    <label class="custom-file-label">Fayl yuklash</label>
+                                 </div>
+                              </div>
+                              <div class="form-group">
+                                 <label>Kitob qachon yaratilgan:</label>
+                                 <input type="number" class="form-control" name="date" value="0" required="" id="id_date"  value="{{book.date}}">
+                              </div>
+                              <div class="form-group">
+                                 <label>Kitob haqida malumot:</label>
+                                 <textarea class="form-control" name="description"  rows="4" id="id_description">{{book.description}}</textarea>
+                              </div>
+                              <div class="d-inline-block w-100">
+                                 <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
+                                     <input type="checkbox" class="custom-control-input" id="customCheck1" name="recommended"  id="id_recommended" {% if book.recommended %}checked{% endif %}>
+                                     <label class="custom-control-label" for="customCheck1">Reklama Bannerlariga Tavsiya etiladi </label>
+                                 </div>
+                             </div>
+                              
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                              <button type="reset" class="btn btn-danger">Reset</button>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Wrapper END -->
+      {% endblock %}

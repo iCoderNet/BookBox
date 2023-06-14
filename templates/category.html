@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kitoblar Ro'yhati{% endblock title %}
+
+{% block adress_path %}
+<div class="navbar-breadcrumb">
+    <h5 class="mb-0">Kitoblar</h5>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Admin</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Kitoblar Ro'yhati</li>
+        </ul>
+    </nav>
+</div>
+{% endblock adress_path %}
+
+{% block content %}
+         <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-lg-12">
+                     {% if query %}
+                     <div class="iq-card-transparent mb-0">
+                        <div class="d-block text-center">
+                           <h2 class="mb-3">Qidirish bo'limi</h2>    
+                           <div class="w-100 iq-search-filter">
+                              <ul class="list-inline p-0 m-0 row justify-content-center search-menu-options">
+                                 {% comment %} <li class="search-menu-opt">
+                                    <div class="iq-dropdown">
+                                       <div class="form-group mb-0">
+                                          <select class="form-control form-search-control bg-white border-0" id="exampleFormControlSelect1">
+                                             <option selected="">All</option>
+                                             <option>A Books</option>
+                                             <option>the Sun</option>
+                                             <option>Harsh book</option>
+                                             <option>People book</option>
+                                             <option>the Fog</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li class="search-menu-opt">
+                                    <div class="iq-dropdown">
+                                       <div class="form-group mb-0">
+                                          <select class="form-control form-search-control bg-white border-0" id="exampleFormControlSelect2">
+                                             <option selected="">Genres</option>
+                                             <option>General</option>
+                                             <option>History</option>
+                                             <option>Horror</option>
+                                             <option>Fantasy</option>
+                                             <option>Literary</option>
+                                             <option>Manga</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li class="search-menu-opt">
+                                    <div class="iq-dropdown">
+                                       <div class="form-group mb-0">
+                                          <select class="form-control form-search-control bg-white border-0" id="exampleFormControlSelect3">
+                                             <option selected="">Year</option>
+                                             <option>2015</option>
+                                             <option>2016</option>
+                                             <option>2017</option>
+                                             <option>2018</option>
+                                             <option>2019</option>
+                                             <option>2020</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li class="search-menu-opt">
+                                    <div class="iq-dropdown">
+                                       <div class="form-group mb-0">
+                                          <select class="form-control form-search-control bg-white border-0" id="exampleFormControlSelect4">
+                                             <option selected="">Author</option>
+                                             <option>Milesiy Yor</option>
+                                             <option>Ira Membrit</option>
+                                             <option>Anna Mull</option>
+                                             <option>John Smith</option>
+                                             <option>David King</option>
+                                             <option>Kusti Franti</option>
+                                          </select>
+                                       </div>
+                                    </div>
+                                 </li> {% endcomment %}
+                                 <li class="search-menu-opt">
+                                    <div class="iq-search-bar search-book d-flex align-items-center">
+                                       <form action="{% url 'search' %}" class="searchbox">
+                                          <input type="text" class="text search-input" placeholder="Kitob nomini kiriting..." name='q' value="{{query}}">
+                                          <a class="search-link" href="{% url 'search' %}"><i class="ri-search-line"></i></a>
+                                       </form>
+                                       <button type="submit" class="btn btn-primary search-data ml-2">Qidirish</button>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div> 
+                        </div>
+                     </div>
+                     {% endif %}
+                     <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between align-items-center position-relative">
+                           <div class="iq-header-title">
+                              {% if query %}
+                              <h4 class="card-title mb-0">Qidiruv natijalar:</h4>
+                              {% else %}
+                              <h4 class="card-title mb-0">Eng yangi kitoblar:</h4>
+                              {% endif %}
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <div class="row">
+                              {% for book in books %} 
+                              <div class="col-sm-6 col-md-4 col-lg-{% if query %}4{% else %}3{% endif %}">
+                                 <div class="iq-card iq-card-block iq-card-stretch iq-card-height search-bookcontent">
+                                    <div class="iq-card-body p-0">
+                                       <div class="d-flex align-items-center">
+                                          <div class="col-6 p-0 position-relative image-overlap-shadow">
+                                             <a href="javascript:comingsoon();"><img class="img-fluid rounded w-100" src="{{ book.image.url }}" alt=""></a>
+                                             <div class="view-book">
+                                                <a href="{% url 'bookInfo' %}{{ book.pk }}" class="btn btn-sm btn-white">Ko'rish</a>
+                                             </div>
+                                          </div>
+                                          <div class="col-6">
+                                             <div class="mb-2">
+                                                <h6 class="mb-1">{{book.name}}</h6>
+                                                <div class="d-block line-height">
+                                                   {% if book.category %}
+                                                   <p class="font-size-13 line-height mb-1">Janr: {{book.category.name}}</p>
+                                                   {% endif %}
+                                                </div>
+                                                <p class="text-body">{{book.author.name}}</p>
+                                             </div>
+                                             <div class="iq-product-action">
+                                                <a href="{% url 'bookInfo' %}{{book.pk}}"><i class="ri-eye-line text-dark" title="Kitobni O'qish" ></i></a>
+                                                <a href="javascript:WishList({{book.pk}});" class="ml-2"  id="heartIcon{{book.pk}}"><i class="{% if book.id in wishlist %}ri-heart-fill{% else %}ri-heart-line{% endif %} text-danger"></i></a>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              {% empty %}
+                              <div class="col-sm-12 text-center">
+                                 <h3>Uzur, bunday kitob topilmadi</h3><hr>
+                                 <a href="{% url 'contact' %}"><button type="button" class="btn mb-3 btn-dark rounded-pill"><i class="ri-add-fill"></i>Kitob qo'shishga ariza berish</button></a>
+                              </div>
+                              {% endfor %}
+                              
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  {% if recbook|length >= 2 %}
+                  <div class="col-lg-12">
+                     <div class="iq-card iq-card-block iq-card-stretch iq-card-height">
+                        <div class="iq-card-header d-flex justify-content-between align-items-center position-relative">
+                           <div class="iq-header-title">
+                              <h4 class="card-title mb-0">Tavsiya berilayotgan kitoblar</h4>
+                           </div>
+                        </div>
+                        <div class="iq-card-body single-similar-contens">
+                           <ul id="single-similar-slider" class="list-inline p-0 mb-0 row">
+                              {% for cb in recbook %}
+                              <li class="col-md-4">
+                                 <div class="row align-items-center">
+                                    <div class="col-5">
+                                       <div class="position-relative image-overlap-shadow">
+                                          <a href="javascript:comingsoon();"><img class="img-fluid rounded w-100" src="{{cb.image.url}}" alt=""></a>
+                                          <div class="view-book">
+                                             <a href="{% url 'bookInfo' %}{{cb.pk}}" class="btn btn-sm btn-white">Ko'rish</a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-7 pl-0">
+                                       <h6 class="mb-2">{{cb.name}}</h6>
+                                       <p class="text-body">Muallif: {{cb.author.name}}</p>
+                                       <a href="{% url 'bookInfo' %}{{cb.pk}}" class="text-dark" tabindex="-1">Kitobni ochish<i class="ri-arrow-right-s-line"></i></a>
+                                    </div>
+                                 </div>
+                              </li>
+                              {% endfor %}
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+                  {% endif %}
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Wrapper END -->
+      {% endblock %}

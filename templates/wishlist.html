@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Yoqtirgan Kitoblarim{% endblock title %}
+
+{% block adress_path %}
+<div class="navbar-breadcrumb">
+    <h5 class="mb-0">Yoqtirgan Kitoblarim</h5>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Kitoblar</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Yoqtirgan Kitoblarim</li>
+        </ul>
+    </nav>
+</div>
+{% endblock adress_path %}
+
+       {% block content %}
+         <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <div class="container-fluid checkout-content">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between iq-border-bottom mb-0">
+                           <div class="iq-header-title">
+                              <h4 class="card-title">Yoqtirgan Kitoblarim</h4>
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <ul class="list-inline p-0 m-0">
+                              {% for wl in wls %}
+                              <li class="checkout-product">
+                                 <div class="row align-items-center">
+                                    <div class="col-sm-3 col-lg-2">
+                                       <div class="row align-items-center">
+                                          <div class="col-sm-3">
+                                             <a href="javascript:delWishList({{wl.book.pk}});" class="badge badge-danger"><i class="ri-close-fill"></i></a>
+                                          </div>
+                                          <div class="col-sm-9">
+                                             <span class="checkout-product-img">
+                                             <a href="{% url 'bookInfo' %}{{wl.book.pk}}"><img class="img-fluid rounded" src="{{wl.book.image.url}}" alt=""></a>
+                                             </span>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="col-sm-3 col-lg-4">
+                                       <div class="checkout-product-details">
+                                          <h5>{{wl.book.name}}</h5>
+                                          <p class="text-success">{{wl.book.author.name}}</p>
+                                       </div>
+                                    </div>
+                                    <div class="col-sm-6 col-lg-6">
+                                       <div class="row">
+                                          <div class="col-sm-8">
+                                                   <p class="text-dark">{{wl.book.description|truncatechars:255}}</p>
+                                          </div>
+                                          <div class="col-sm-4 text-center">
+                                             <a href="{% url 'bookInfo' %}{{wl.book.pk}}"><button type="submit" class="btn btn-primary view-more">Kitobni Ko'rish</button></a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </li>
+                              {% empty %}
+                                    <p class="text-center">Hozircha yoqtirgan kitoblaringiz kiritilmagan</p>
+                              {% endfor %}
+                              
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Wrapper END -->
+      {% endblock %}
+
+
+{% block script %}
+<script>
+function delWishList(id) {
+   $.ajax({
+      type: "GET",
+      url: "{% url 'addWishList' %}"+id,
+      dataType: 'json'
+   }).done(function(result){
+      if(result["ok"]){
+         console.log(result["detalist"]);
+         window.location.reload();
+      };
+   });
+};
+</script>
+{% endblock script %}

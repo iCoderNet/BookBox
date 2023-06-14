@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Userni tahrirlash{% endblock title %}
+
+{% block adress_path %}
+<div class="navbar-breadcrumb">
+    <h5 class="mb-0">Userni tahrirlassh</h5>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'adminUser' %}">Userlar</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Userni tahrirlash</li>
+        </ul>
+    </nav>
+</div>
+{% endblock adress_path %}
+
+{% block content %}
+      <!-- Page Content  -->
+   <div id="content-page" class="content-page">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-3">
+                  <div class="iq-card">
+                     
+                     <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                           <h4 class="card-title">Userni Tahrirlash</h4>
+                        </div>
+                     </div>
+                     <div class="iq-card-body">
+                        <form method="post" , enctype="multipart/form-data">
+                           {% csrf_token %}
+                           {{ form.a_p }}
+                           <div class="form-group">
+                              <div class="add-img-user profile-img-edit">
+                                 <img class="profile-pic img-fluid" src="{{data_person.image.url}}" alt="profile-pic">
+                                 <div class="p-image">
+                                   <a href="javascript:soon();" class="upload-button btn iq-bg-primary">Surat yuklash</a>
+                                   <input class="file-upload" type="file" name='image' id="id_image" accept="image/*">
+                                </div>
+                              </div>
+                             <div class="img-extension mt-3">
+                                <div class="d-inline-block align-items-center">
+                                    <span>Only</span>
+                                   <a href="javascript:comingsoon();">.jpg</a>
+                                   <a href="javascript:comingsoon();">.png</a>
+                                   <a href="javascript:comingsoon();">.jpeg</a>
+                                   <span>allowed</span>
+                                </div>
+                             </div>
+                           </div>
+                           <div class="form-group">
+                              <label>Faoliyasi:</label>
+                              <select class="form-control" name="role" id="id_role">
+                                 <option value="1">User</option>
+                                 <option value="2" {% if data_user.is_superuser %}selected{% endif %}>Admin</option>
+                              </select>
+                           </div>
+                     </div>
+                  </div>
+            </div>
+            <div class="col-lg-9">
+                  <div class="iq-card">
+                     {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert bg-white alert-{{ message.tags }}" role="alert">
+                           <div class="iq-alert-text">{{ message }}</div>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <i class="ri-close-line  text-dark"></i>
+                           </button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                     <div class="iq-card-header d-flex justify-content-between">
+                        <div class="iq-header-title">
+                           <h4 class="card-title">O'rgartiriladigan malumotlarini kiriting</h4>
+                        </div>
+                     </div>
+                     <div class="iq-card-body">
+                        <div class="new-user-info">
+                              <div class="row">
+                                 <div class="form-group col-md-6">
+                                    <label for="fname">Ismi:</label>
+                                    <input type="text" class="form-control" name="firstname" id="id_firstname" placeholder="Ismi" value="{{data_person.firstname}}">
+                                 </div>
+                                 <div class="form-group col-md-6">
+                                    <label for="lname">Familyasi:</label>
+                                    <input type="text" class="form-control" name="lastname" id="id_lastname" placeholder="Familyasi"  value="{{data_person.lastname}}">
+                                 </div>
+                                 <div class="form-group col-md-12">
+                                    <label for="cname">Tug'ilgan kuni:</label>
+                                    <input type="date" class="form-control" name="birthday" id="id_birthday" placeholder="Tug'ilgan kuni" value="{{data_person.birthday}}">
+                                 </div>
+                                 <div class="form-group col-sm-12">
+                                    <label>Jinsi:</label>
+                                    <select class="form-control" name="gender" id="id_gender">
+                                     
+                                       <option value="1" {% if data_person.gender == '2' %}selected=''{% endif %}>Erkak</option>
+                                     
+                                       <option value="2" {% if data_person.gender == '2' %}selected=''{% endif %}>Ayol</option>
+                                     
+                                     </select>
+                                 </div>
+                                 <div class="form-group col-md-12">
+                                    <label for="mobno">Telefon No:</label>
+                                    <input type="text" class="form-control" name="phone" id="id_phone" placeholder="Mobile Number"  value="{{data_person.phone}}">
+                                 </div>
+                                 <div class="form-group col-md-12">
+                                    <label for="email">Email:</label>
+                                    <input type="email" class="form-control" name="email" id="id_email" placeholder="Email"  value="{{data_user.email}}">
+                                 </div>
+                              </div>
+                              <hr>
+                              <h5 class="mb-3">Xavfsizlik</h5>
+                              <div class="row">
+                                 <div class="form-group col-md-12">
+                                    <label for="uname">User Name:</label>
+                                    <input type="text" class="form-control" name="username" id="id_username" placeholder="User Name" value="{{data_user.username}}">
+                                 </div>
+                                 <div class="form-group col-md-6">
+                                    <label for="pass">Parol o'zgartirish:</label>
+                                    <input type="password" class="form-control" name="password1" id="id_password1" placeholder="Parol">
+                                 </div>
+                                 <div class="form-group col-md-6">
+                                    <label for="rpass">Parolni takrorlang:</label>
+                                    <input type="password" class="form-control" name="password2" id="id_password2" placeholder="Takrorlang">
+                                 </div>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Qo'shish</button>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   </div>
+   <!-- Wrapper END -->
+    {% endblock %}

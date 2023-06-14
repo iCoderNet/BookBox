@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Biz bilan bog'lanish{% endblock title %}
+
+{% block adress_path %}
+<div class="navbar-breadcrumb">
+    <h5 class="mb-0">Biz bilan bog'lanish</h5>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'adminUser' %}">Asosiy</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Aloqaga chiqish</li>
+        </ul>
+    </nav>
+</div>
+{% endblock adress_path %}
+
+{% block content %}
+        
+         <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <div class="iq-card">
+                        <div class="iq-card-body">
+                           Here Add Your HTML Content.....
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+      {% endblock %}

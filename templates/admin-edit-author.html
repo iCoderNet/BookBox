@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Author{% endblock title %}
+
+{% block adress_path %}
+<div class="navbar-breadcrumb">
+    <h5 class="mb-0">Admin</h5>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Admin</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Edit Author</li>
+        </ul>
+    </nav>
+</div>
+{% endblock adress_path %}
+
+{% block content %}
+         <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        {% if messages %}
+                           {% for message in messages %}
+                           <div class="alert bg-white alert-{{ message.tags }}" role="alert">
+                              <div class="iq-alert-text">{{ message }}</div>
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <i class="ri-close-line  text-dark"></i>
+                              </button>
+                           </div>
+                           {% endfor %}
+                        {% endif %}
+                        <div class="iq-card-header d-flex justify-content-between">
+                           <div class="iq-header-title">
+                              <h4 class="card-title">Edit Author</h4>
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <form method='POST' id='editAuthor'  enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="form-group">
+                                <label>Author Name:</label>
+                                <input type="text" class="form-control" name='name' id="id_name" value="{{author.name}}" required="">
+                             </div>
+                             <div class="form-group">
+                                <label>Author Profile:</label>
+                                <div class="custom-file">
+                                   <input type="file" class="custom-file-input" name="image" accept="image/*" id="id_image">
+                                   <label class="custom-file-label" for="id_profile">Choose file...</label>
+                                </div>
+                             </div>
+                             
+                             <div class="form-group">
+                                <label>Author Description:</label>
+                                <textarea class="form-control" rows="4" name='description' id="id_description" >{{author.description}}</textarea>
+                             </div>
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                              <button type="reset" value="Reset" class="btn btn-danger" id='resetButton'>Reset</button>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Wrapper END -->
+      {% endblock content %}
+
+
+{% block script %}
+<script>
+document.getElementById("resetButton").addEventListener("click", function() {
+   document.getElementById("editAuthor").reset();
+});
+</script>
+{% endblock script %}

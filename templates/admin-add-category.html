@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} Kategoriya Qo'shish {% endblock title %}
+
+{% block adress_path %}
+<div class="navbar-breadcrumb">
+   <h5 class="mb-0">Admin</h5>
+   <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+         <li class="breadcrumb-item"><a href="{% url 'home' %}">Admin</a></li>
+         <li class="breadcrumb-item active" aria-current="page">Kategoriya Qo'shish</li>
+      </ul>
+   </nav>
+</div>
+{% endblock adress_path %}
+
+
+{% block content %}
+         <!-- Page Content  -->
+         <div id="content-page" class="content-page">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-sm-12">
+                     <div class="iq-card">
+                        {% if messages %}
+                           {% for message in messages %}
+                           <div class="alert bg-white alert-{{ message.tags }}" role="alert">
+                              <div class="iq-alert-text">{{ message }}</div>
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <i class="ri-close-line  text-dark"></i>
+                              </button>
+                           </div>
+                           {% endfor %}
+                        {% endif %}
+                        <div class="iq-card-header d-flex justify-content-between">
+                           <div class="iq-header-title">
+                              <h4 class="card-title">Kategoriya Qo'shish</h4>
+                           </div>
+                        </div>
+                        <div class="iq-card-body">
+                           <form action="{% url 'addCat' %}" method='POST' id='addCat'>
+                              {% csrf_token %}
+                              <div class="form-group">
+                                 <label>Kategoriya Nomi: *</label>
+                                 <input type="text" class="form-control" name='name' required>
+                              </div>
+                              <div class="form-group">
+                                 <label>Kategoriya Haqida:</label>
+                                 <textarea class="form-control" rows="4" name="description"></textarea>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Qo'shish</button>
+                              <button type="reset" value="Reset" class="btn btn-danger" id='resetButton'>Tozalash</button>
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+{% endblock content %}
+
+{% block script %}
+<script>
+      document.getElementById("resetButton").addEventListener("click", function() {
+         document.getElementById("addCat").reset();
+      });
+</script>
+{% endblock script %}
