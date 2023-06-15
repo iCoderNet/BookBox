@@ -2,3 +2,4 @@ django
 aiogram
 python-dotenv
 requests
+pillow
