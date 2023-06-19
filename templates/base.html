@@ -80,13 +80,11 @@
                      <li>
                         <a href="#userinfo" class="iq-waves-effect" data-toggle="collapse" aria-expanded="false"><span class="ripple rippleEffect"></span><i class="ion-gear-b iq-arrow-left"></i><span>Sozlamalar</span><i class="ri-arrow-right-s-line iq-arrow-right"></i></a>
                         <ul id="userinfo" class="iq-submenu collapse" data-parent="#iq-sidebar-toggle" style="">
-                           <li><a href="profile.html"><i class="las la-id-card-alt"></i>Mening Profilim</a></li>
-                           <li><a href="profile-edit.html"><i class="las la-edit"></i>Profilni tahrirlash</a></li>
+                           <li><a href=""><i class="las la-id-card-alt"></i>Mening Profilim</a></li>
+                           <li><a href=""><i class="las la-edit"></i>Profilni tahrirlash</a></li>
                         </ul>
                      </li>
-                     <li>
-                        <a href="{% url 'contact' %}" class="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false"><i class="ri-mail-send-fill iq-arrow-left"></i><span>Aloqaga chiqish</span></a>
-                     </li>
+                     <li><a href="{% url 'contact' %}"><i class="ri-mail-send-fill"></i>Aloqaga chiqish</a></li>
                      
                   </ul>
                </nav>
@@ -271,7 +269,7 @@
                                        <h5 class="mb-0 text-white line-height">Salom {% if mydata.firstname %} {{mydata.firstname}} {{mydata.lastname}} {% else %} {{request.user}} {% endif %}</h5>
                                        <span class="text-white font-size-12">{% if user.is_superuser %} Admin {% else %} Foydalanuvchi {% endif %}</span>
                                     </div>
-                                    <a href="profile.html" class="iq-sub-card iq-bg-primary-hover">
+                                    <a href="" class="iq-sub-card iq-bg-primary-hover">
                                        <div class="media align-items-center">
                                           <div class="rounded iq-card-icon iq-bg-primary">
                                              <i class="ri-file-user-line"></i>
@@ -282,7 +280,7 @@
                                           </div>
                                        </div>
                                     </a>
-                                    <a href="profile-edit.html" class="iq-sub-card iq-bg-primary-hover">
+                                    <a href="" class="iq-sub-card iq-bg-primary-hover">
                                        <div class="media align-items-center">
                                           <div class="rounded iq-card-icon iq-bg-primary">
                                              <i class="ri-profile-line"></i>
@@ -293,7 +291,7 @@
                                           </div>
                                        </div>
                                     </a>
-                                    <a href="account-setting.html" class="iq-sub-card iq-bg-primary-hover">
+                                    <a href="" class="iq-sub-card iq-bg-primary-hover">
                                        <div class="media align-items-center">
                                           <div class="rounded iq-card-icon iq-bg-primary">
                                              <i class="ri-account-box-line"></i>
