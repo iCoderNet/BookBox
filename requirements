@@ -3,6 +3,3 @@ aiogram
 python-dotenv
 requests
 pillow
-gunicorn
-whitenoise
-psycopg2-binary
